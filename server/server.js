@@ -108,12 +108,14 @@ const renderError = err => {
 
 // Server Side Rendering based on routes matched by React-router.
 app.use((req, res, next) => {
+  // function matches url 
   match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {
     if (err) {
       return res.status(500).end(renderError(err));
     }
 
     if (redirectLocation) {
+      // if Location => code302
       return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     }
 
@@ -123,6 +125,11 @@ app.use((req, res, next) => {
 
     const store = configureStore();
 
+
+    // a crusial function; parameters:
+    // 1. function dispatching Redux store
+    // 2. array with components
+    // 3. routing parameters
     return fetchComponentData(store, renderProps.components, renderProps.params)
       .then(() => {
         const initialView = renderToString(
