@@ -67,42 +67,42 @@ export function getPost(req, res) {
  * @param res
  * @returns void
  */
- export function deletePost(req, res) {
-   Post.findOne({ cuid: req.params.cuid }).exec((err, post) => {
-     if (err) {
-       res.status(500).send(err);
-     }
+export function deletePost(req, res) {
+  Post.findOne({ cuid: req.params.cuid }).exec((err, post) => {
+    if (err) {
+      res.status(500).send(err);
+    }
 
-     post.remove(() => {
-       res.status(200).end();
-     });
-   });
- }
+    post.remove(() => {
+      res.status(200).end();
+    });
+  });
+}
 
 
- export function editPost(req, res) {
-   Post.update({ cuid: req.params.cuid }, req.body.post).exec((err, post) => {
-     if (err) {
-       res.status(500).send(err);
-     }
-     res.json({ post });
-   });
- }
+export function editPost(req, res) {
+  Post.update({ cuid: req.params.cuid }, req.body.post).exec((err, post) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.json({ post });
+  });
+}
 
- export function thumbUpPost(req, res) {
-   Post.findOneAndUpdate({ cuid: req.params.cuid }, { $inc: { votes: 1 } }).exec((err, post) => {
-     if (err) {
-       res.status(500).send(err);
-     }
-     res.json({ post });
-   });
- }
+export function thumbUpPost(req, res) {
+  Post.findOneAndUpdate({ cuid: req.params.cuid }, { $inc: { votes: 1 } }).exec((err, post) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.json({ post });
+  });
+}
 
- export function thumbDownPost(req, res) {
-   Post.findOneAndUpdate({ cuid: req.params.cuid }, { $inc: { votes: -1 } }).exec((err, post) => {
-     if (err) {
-       res.status(500).send(err);
-     }
-     res.json({ post });
-   });
- }
+export function thumbDownPost(req, res) {
+  Post.findOneAndUpdate({ cuid: req.params.cuid }, { $inc: { votes: -1 } }).exec((err, post) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.json({ post });
+  });
+}
